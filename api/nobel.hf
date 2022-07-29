@@ -1,0 +1,31 @@
+#url /api/v1
+#type api
+#base http://localhost:5050
+#method get
+#title Nobel Prize REST API
+#description Nobel Prize REST API
+#version 1.0
+#license ""
+#contacts ""
+#endpoint https://query.wikidata.org/sparql
+
+#url /all
+#call /all
+#type operation
+#method get
+#description ""
+#field_type str(PersonLabel) str(NobelPrizeLabel) int(year) str(pic)
+#output_json ""
+#sparql SELECT DISTINCT ?PersonLabel ?NPLabel (YEAR(?When) as ?year) ?Pic
+WHERE {
+  ?Person p:P166 ?NobelPrize .
+  ?NobelPrize ps:P166/wdt:P279* wd:Q7191 ;
+              ps:P166/rdfs:label ?NPLabel filter (lang(?NPLabel) = "en") .
+  OPTIONAL {
+    ?NobelPrize pq:P585 ?When .
+    ?Person wdt:P18 ?Pic
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+  }
+} ORDER BY ?year
