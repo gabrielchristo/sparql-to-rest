@@ -1,4 +1,4 @@
-[submodule "ramose"]
+[submodule "api/ramose"]
 	path = api/ramose
 	url = https://github.com/opencitations/ramose.git
 	branch = master
