@@ -8,24 +8,58 @@
 #license ""
 #contacts ""
 #endpoint https://query.wikidata.org/sparql
+#addon nobel
 
-#url /all
-#call /all
+
+#url /{categoryParameter}/{yearParameter}
+#call ""
 #type operation
+#preprocess get_type(categoryParameter)
+#postprocess normalize()
 #method get
 #description ""
-#field_type str(PersonLabel) str(NobelPrizeLabel) int(year) str(pic)
+#field_type str(PersonLabel) str(NobelPrizeLabel) int(Year) str(Picture)
 #output_json ""
-#sparql SELECT DISTINCT ?PersonLabel ?NPLabel (YEAR(?When) as ?year) ?Pic
+#sparql SELECT DISTINCT ?PersonLabel ?NPLabel ?Year ?Picture
 WHERE {
+  VALUES ?Year { [[yearParameter]] }
+  VALUES ?Category { [[categoryParameter]] }
+  
   ?Person p:P166 ?NobelPrize .
-  ?NobelPrize ps:P166/wdt:P279* wd:Q7191 ;
-              ps:P166/rdfs:label ?NPLabel filter (lang(?NPLabel) = "en") .
+  ?NobelPrize ps:P166/wdt:P279* ?Category ;
+              ps:P166/rdfs:label ?NPLabel ;
+              pq:P585 ?When ;
+              filter (lang(?NPLabel) = "en" && YEAR(?When) = ?Year) .
   OPTIONAL {
-    ?NobelPrize pq:P585 ?When .
-    ?Person wdt:P18 ?Pic
+    ?Person wdt:P18 ?Picture
   }
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
   }
-} ORDER BY ?year
+}
+
+
+#url /{categoryParameter}
+#call ""
+#type operation
+#preprocess get_type(categoryParameter)
+#postprocess normalize()
+#method get
+#description ""
+#field_type str(PersonLabel) str(NobelPrizeLabel) int(Year) str(Picture)
+#output_json ""
+#sparql SELECT DISTINCT ?PersonLabel ?NPLabel (YEAR(?When) as ?Year) ?Picture
+WHERE {
+  VALUES ?Category { [[categoryParameter]] }
+
+  ?Person p:P166 ?NobelPrize .
+  ?NobelPrize ps:P166/wdt:P279* ?Category ;
+              ps:P166/rdfs:label ?NPLabel filter (lang(?NPLabel) = "en") .
+  OPTIONAL {
+    ?NobelPrize pq:P585 ?When .
+    ?Person wdt:P18 ?Picture
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+  }
+} ORDER BY ?Year

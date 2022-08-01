@@ -8,6 +8,8 @@ Este projeto visa desenvolver uma prova de conceito (PoC) para exposição dos d
 
 O projeto RAMOSE permite o desenvolvimento ágil de APIs RESTful na linguagem Python através do framework [Flask](https://github.com/pallets/flask). Através de routing podemos mapear requisições HTTP para execução de uma query SPARQL pré-definida.
 
+O mapeamento de URLs para as queries é realizado através de um arquivo de configuração em formato de texto. Alguns exemplos estão disponíveis [neste repositório](https://github.com/opencitations/api) da organização OpenCitations.
+
 Além de proporcionar o acesso massivo à triplestores sem a curva de aprendizado da web semântica, é possível definir múltiplas APIs a partir de múltiplos endpoints SPARQL, permitindo integração entre diversos sistemas. O artigo base do projeto está disponível no [Semantic Web Journal](http://www.semantic-web-journal.net/content/creating-restful-apis-over-sparql-endpoints-using-ramose-0).
 
 Para ilustrar a conversão, foi utilizado o seguinte endpoint SPARQL:
@@ -74,7 +76,9 @@ WHERE {
 <summary> <b> Comparativo com JSON-LD </b> </summary>
 <p>
 
-ToDo ...
+Enquanto o JSON-LD (JavaScript Object Notation for Linked Data) busca manter a semântica de triplas e um objeto `context` para facilitar uma posterior conversão em modelos RDF, o projeto RAMOSE optou por retornar os dados em JSON com formatação livre.
+
+É possível retornar somente as propriedades desejadas de uma query, a partir de modificações no atributo `field_type` do arquivo de configuração. Também é possível aplicar filtros de pré-processamento e pós-processamento no retorno da query SPARQL. Essa liberdade para modelagem da API pode ser benéfica para fins de manutenção e criação de uma especificação [OpenAPI](https://github.com/OAI/OpenAPI-Specification). 
 
 </p>
 </details>
