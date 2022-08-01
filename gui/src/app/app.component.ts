@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
 
 	public navbar_title = 'Nobel Prize Explorer'
 	public awards: Award[];
+	public showWarningForEconomics = false;
 
 	constructor(private awardService: AwardService) { }
 
@@ -19,6 +20,12 @@ export class AppComponent implements OnInit {
 
 	runQuery($event: any) {
 		this.getAwardsByCategoryAndYear($event['category'], $event['year']);
+
+		if ($event['category'] == 'economic_sciences' && $event['year'] <= 1968) {
+			this.showWarningForEconomics = true;
+		} else {
+			this.showWarningForEconomics = false;
+		}
 	}
 
 	getAwardsByCategoryAndYear(category: string, year: number) {

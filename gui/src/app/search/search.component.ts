@@ -19,7 +19,7 @@ export class SearchComponent {
 	}
 
 	onYearInputChange($event: any) {
-		this.currentYear = $event.target.value;
+		this.currentYear = parseInt($event.target.value);
 	}
 
 }

@@ -18,9 +18,9 @@
 #postprocess normalize()
 #method get
 #description ""
-#field_type str(PersonLabel) str(NobelPrizeLabel) int(Year) str(Picture)
+#field_type str(PersonLabel) str(NobelPrizeLabel) int(Year) str(Picture) str(Money) str(Motivation)
 #output_json ""
-#sparql SELECT DISTINCT ?PersonLabel ?NPLabel ?Year ?Picture
+#sparql SELECT DISTINCT ?PersonLabel ?NPLabel ?Year ?Picture ?Money ?Motivation
 WHERE {
   VALUES ?Year { [[yearParameter]] }
   VALUES ?Category { [[categoryParameter]] }
@@ -30,13 +30,14 @@ WHERE {
               ps:P166/rdfs:label ?NPLabel ;
               pq:P585 ?When ;
               filter (lang(?NPLabel) = "en" && YEAR(?When) = ?Year) .
-  OPTIONAL {
-    ?Person wdt:P18 ?Picture
-  }
+  OPTIONAL { ?Person wdt:P18 ?Picture . }
+  OPTIONAL { ?NobelPrize pq:P2121 ?MoneyValue . }
+  BIND(CONCAT(STR(?MoneyValue), " Swedish krona") as ?Money)
+  OPTIONAL { ?NobelPrize pq:P6208 ?Motivation filter (lang(?Motivation) = "en") . }
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
   }
-}
+} ORDER BY ?Motivation
 
 
 #url /{categoryParameter}
@@ -46,19 +47,20 @@ WHERE {
 #postprocess normalize()
 #method get
 #description ""
-#field_type str(PersonLabel) str(NobelPrizeLabel) int(Year) str(Picture)
+#field_type str(PersonLabel) str(NobelPrizeLabel) int(Year) str(Picture) str(Money) str(Motivation)
 #output_json ""
-#sparql SELECT DISTINCT ?PersonLabel ?NPLabel (YEAR(?When) as ?Year) ?Picture
+#sparql SELECT DISTINCT ?PersonLabel ?NPLabel (YEAR(?When) as ?Year) ?Picture ?Money ?Motivation
 WHERE {
   VALUES ?Category { [[categoryParameter]] }
 
   ?Person p:P166 ?NobelPrize .
   ?NobelPrize ps:P166/wdt:P279* ?Category ;
               ps:P166/rdfs:label ?NPLabel filter (lang(?NPLabel) = "en") .
-  OPTIONAL {
-    ?NobelPrize pq:P585 ?When .
-    ?Person wdt:P18 ?Picture
-  }
+  OPTIONAL { ?NobelPrize pq:P585 ?When . }
+  OPTIONAL { ?Person wdt:P18 ?Picture . }
+  OPTIONAL { ?NobelPrize pq:P2121 ?MoneyValue . }
+  BIND(CONCAT(STR(?MoneyValue), " Swedish krona") as ?Money)
+  OPTIONAL { ?NobelPrize pq:P6208 ?Motivation filter (lang(?Motivation) = "en") . }
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
   }

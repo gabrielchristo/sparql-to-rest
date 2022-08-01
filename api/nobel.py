@@ -16,6 +16,8 @@ def normalize(response):
 	response[0][1] = 'prize'
 	response[0][2] = 'year'
 	response[0][3] = 'image'
+	response[0][4] = 'money'
+	response[0][5] = 'motivation'
 	return response, True # must return tuple of values for ramose
 
 # pre process

@@ -44,7 +44,7 @@ e observar a seguinte tela:
 
 ### GUI
 
-Para executar a interface gráfica leia os detalhes de execução [aqui](). Com a GUI iniciada deve ser possível acessar a mesma por:
+Para executar a interface gráfica leia os detalhes de execução [aqui](https://github.com/gabrielchristo/sparql-to-rest/blob/main/gui/README.md). Com o backend e a GUI iniciados deve ser possível acessar a mesma por:
 
 ```
 http://localhost:4200
@@ -53,6 +53,10 @@ http://localhost:4200
 e observar a seguinte tela:
 
 ![](imgs/gui_home.png)
+
+Com isso já é possível navegar pelas premiações de acordo com categoria e ano:
+
+![](imgs/gui_sample.gif)
 
 </p>
 </details>

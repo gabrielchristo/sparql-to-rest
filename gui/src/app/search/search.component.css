@@ -54,7 +54,7 @@ span:hover, #increment-down:hover, #increment-up:hover {
 	padding: 15px 20px;
 	color: inherit;
 	background-color: transparent;
-	max-width: 90px;
+	max-width: 95px;
 }
 
 .selector, .incrementor {

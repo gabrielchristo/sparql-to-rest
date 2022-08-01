@@ -6,7 +6,7 @@
 }
 
 .container {  display: grid;
-	grid-template-columns: 1fr 0.8fr 1.2fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr;
 	gap: 0px 0px;
 	grid-auto-flow: row;
@@ -21,22 +21,22 @@
 	  margin-right: auto;
 	  margin-bottom: 1%;
 	  padding: 5px 60px;
-	  max-height: 230px;
+	  max-height: 260px;
 	  max-width: 50%;
-
-	  
   }
   
-  .motivation { grid-area: motivation; }
+  .motivation { grid-area: motivation;
+	padding-bottom: 5px;
+	}
   
   .prize { grid-area: prize;
-	
-}
+		padding: 0;
+	}
   
   .name { grid-area: name;
 	font-weight: bold;
 	font-size: large;
-	padding: 30px 1px;
+	padding: 18px 1px;
 }
   
   .image { grid-area: image; }

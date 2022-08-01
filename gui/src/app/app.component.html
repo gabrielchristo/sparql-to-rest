@@ -9,6 +9,9 @@
 <app-details *ngFor="let award of awards" [myAward]="award">
 </app-details>
 
+<p class="economics" *ngIf="showWarningForEconomics">
+	The Economics Prize was awarded for the first time in 1969.</p>
+
 <footer>
 	<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
 		2022
