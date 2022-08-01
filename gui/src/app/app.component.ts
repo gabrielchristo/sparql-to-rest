@@ -9,23 +9,16 @@ import { AwardService } from './services/award.service';
 })
 export class AppComponent implements OnInit {
 
-	public navbar_title = ' Nobel Prize Explorer'
+	public navbar_title = 'Nobel Prize Explorer'
 	public awards: Award[];
 
 	constructor(private awardService: AwardService) { }
 
 	ngOnInit(): void {
-
 	}
 
 	runQuery($event: any) {
 		this.getAwardsByCategoryAndYear($event['category'], $event['year']);
-	}
-
-	getAllAwards() {
-		this.awardService.getAwards('all').subscribe((response: Award[]) => {
-			this.awards = response;
-		});
 	}
 
 	getAwardsByCategoryAndYear(category: string, year: number) {

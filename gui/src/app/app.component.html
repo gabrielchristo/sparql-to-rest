@@ -4,6 +4,8 @@
 
 <app-search (exploreClickEvent)="runQuery($event)"></app-search>
 
+<ngx-loading-bar color="#bb8a35" height="3px" diameter="20px"></ngx-loading-bar>
+
 <app-details *ngFor="let award of awards" [myAward]="award">
 </app-details>
 

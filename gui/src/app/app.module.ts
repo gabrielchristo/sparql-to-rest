@@ -6,6 +6,7 @@ import { DetailsComponent } from './details/details.component';
 import { SearchComponent } from './search/search.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
 	declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 	],
 	imports: [
 		BrowserModule,
-		HttpClientModule
+		HttpClientModule,
+		LoadingBarHttpClientModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

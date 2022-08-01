@@ -6,6 +6,7 @@ Com o [Node.js](https://github.com/nodejs/node) devidamente instalado, executar 
 
 ```sh
 npm install -g @angular/cli
+npm install @ngx-loading-bar/core @ngx-loading-bar/http-client --save
 ```
 
 ## Execução com projeto local
