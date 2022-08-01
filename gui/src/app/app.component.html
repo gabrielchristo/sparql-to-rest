@@ -1,0 +1,17 @@
+<nav class="navbar navbar-dark bg-dark">
+	<a class="navbar-brand mx-auto" routerLink="">{{ navbar_title }}</a>
+</nav>
+
+<app-search (exploreClickEvent)="runQuery($event)"></app-search>
+
+<app-details *ngFor="let award of awards" [myAward]="award">
+</app-details>
+
+<footer>
+	<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+		2022
+		<br>
+		<a class="text-reset fw-bold" href="https://github.com/gabrielchristo/sparql-to-rest">SPARQL to REST - Proof of
+			Concept</a>
+	</div>
+</footer>

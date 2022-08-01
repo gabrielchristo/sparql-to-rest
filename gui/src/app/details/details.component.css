@@ -1,0 +1,49 @@
+
+* {
+	box-sizing: border-box;
+	margin:0px;
+	padding:0px;
+}
+
+.container {  display: grid;
+	grid-template-columns: 1fr 0.8fr 1.2fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	gap: 0px 0px;
+	grid-auto-flow: row;
+	grid-template-areas:
+	  "name name image"
+	  "prize prize image"
+	  "motivation motivation image";
+
+	color: #2e2a25;
+	  border: 2px solid #bb8a35;
+	  margin-left: auto;
+	  margin-right: auto;
+	  margin-bottom: 1%;
+	  padding: 5px 60px;
+	  max-height: 230px;
+	  max-width: 50%;
+
+	  
+  }
+  
+  .motivation { grid-area: motivation; }
+  
+  .prize { grid-area: prize;
+	
+}
+  
+  .name { grid-area: name;
+	font-weight: bold;
+	font-size: large;
+	padding: 30px 1px;
+}
+  
+  .image { grid-area: image; }
+  
+  img {
+	height: 100%;
+    max-width: 100%;
+	display: block;
+	margin: auto;
+  }

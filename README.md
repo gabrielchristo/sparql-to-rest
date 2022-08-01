@@ -38,9 +38,21 @@ Para executar o backend RAMOSE leia os detalhes de execução [aqui](https://git
 http://localhost:5050/api/
 ```
 
+e observar a seguinte tela:
+
+![](imgs/ramose_home.png)
+
 ### GUI
 
-ToDo ...
+Para executar a interface gráfica leia os detalhes de execução [aqui](). Com a GUI iniciada deve ser possível acessar a mesma por:
+
+```
+http://localhost:4200
+```
+
+e observar a seguinte tela:
+
+![](imgs/gui_home.png)
 
 </p>
 </details>
@@ -76,7 +88,7 @@ WHERE {
 <summary> <b> Comparativo com JSON-LD </b> </summary>
 <p>
 
-Enquanto o JSON-LD (JavaScript Object Notation for Linked Data) busca manter a semântica de triplas e um objeto `context` para facilitar uma posterior conversão em modelos RDF, o projeto RAMOSE optou por retornar os dados em JSON com formatação livre.
+Enquanto o [JSON-LD](https://json-ld.org/spec/latest/json-ld/) (JavaScript Object Notation for Linked Data) busca manter a semântica de triplas (Linked Data) e um objeto `context` para facilitar uma posterior conversão em modelos RDF, o projeto RAMOSE optou por retornar os dados em JSON com formatação livre.
 
 É possível retornar somente as propriedades desejadas de uma query, a partir de modificações no atributo `field_type` do arquivo de configuração. Também é possível aplicar filtros de pré-processamento e pós-processamento no retorno da query SPARQL. Essa liberdade para modelagem da API pode ser benéfica para fins de manutenção e criação de uma especificação [OpenAPI](https://github.com/OAI/OpenAPI-Specification). 
 

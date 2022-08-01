@@ -1,0 +1,34 @@
+<div class="searchContent">
+
+	<div class="searchPanel">
+
+		<div class="selector">
+			<span (click)="selectedCategory = 'all'" [class]="selectedCategory == 'all' ? 'selected' : '' ">All</span>
+			<span (click)="selectedCategory = 'physics'"
+				[class]="selectedCategory == 'physics' ? 'selected' : '' ">Physics</span>
+			<span (click)="selectedCategory = 'chemistry'"
+				[class]="selectedCategory == 'chemistry' ? 'selected' : '' ">Chemistry</span>
+			<span (click)="selectedCategory = 'medicine'"
+				[class]="selectedCategory == 'medicine' ? 'selected' : '' ">Medicine</span>
+			<span (click)="selectedCategory = 'literature'"
+				[class]="selectedCategory == 'literature' ? 'selected' : '' ">Literature</span>
+			<span (click)="selectedCategory = 'peace'" [class]="selectedCategory == 'peace' ? 'selected' : '' ">Peace
+			</span>
+			<span (click)="selectedCategory = 'economic_sciences'"
+				[class]="selectedCategory == 'economic_sciences' ? 'selected' : '' ">Economic Sciences</span>
+		</div>
+
+		<div class="incrementor">
+			<button id="increment-down" type="button" (click)="currentYear = currentYear - 1">–</button>
+			<input id="increment-input" type="text" maxlength="4" [value]="currentYear"
+				(input)="onYearInputChange($event)">
+			<button id="increment-up" type="button" (click)="currentYear = currentYear + 1">+</button>
+		</div>
+
+		<div class="submit">
+			<button type="submit" (click)='onExplorerClick()' autofocus>explore</button>
+		</div>
+
+	</div>
+
+</div>
