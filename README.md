@@ -66,22 +66,77 @@ Com isso já é possível navegar pelas premiações de acordo com categoria e a
 <summary> <b> Consultas </b> </summary>
 <p>
 
-ToDo ...
+Para realizar as consultas na Wikidata foi necessário ter conhecimento de algumas propriedades e entidades relacionadas com o domínio do trabalho. Neste caso foi escolhido o `Prêmio Nobel` como tópico para realização da prova de conceito.
+
+| Propriedade | Descrição       |
+|-------------|-----------------|
+| P18         | image           |
+| P31         | instance of     |
+| P50         | author          |
+| P166        | award received  |
+| P279        | subclass of     |
+| P585        | point in time   |
+| P1411       | nominated for   |
+| P1706       | together with   |
+| P2121       | prize money     |
+| P6208       | award rationale |
+
+| Entidade | Descrição         |
+|----------|-------------------|
+| Q7191    | nobel prize       |
+| Q38104   | physics           |
+| Q35637   | peace             |
+| Q37922   | literature        |
+| Q44585   | chemistry         |
+| Q80061   | medicine          |
+| Q47170   | economic sciences |
+
+---
+
+Com o vocabulário RDF em mãos, foram definidas duas queries para o RAMOSE:
+
+Query para obter premiados por categoria
 
 ```sparql
-SELECT DISTINCT ?PersonLabel ?NPLabel (YEAR(?When) as ?year) ?Pic
+SELECT DISTINCT ?PersonLabel ?NPLabel (YEAR(?When) as ?Year) ?Picture ?Money ?Motivation
 WHERE {
+  VALUES ?Category { [[categoryParameter]] }
+
   ?Person p:P166 ?NobelPrize .
-  ?NobelPrize ps:P166/wdt:P279* wd:Q7191 ;
+  ?NobelPrize ps:P166/wdt:P279* ?Category ;
               ps:P166/rdfs:label ?NPLabel filter (lang(?NPLabel) = "en") .
-  OPTIONAL {
-    ?NobelPrize pq:P585 ?When .
-    ?Person wdt:P18 ?Pic
-  }
+  OPTIONAL { ?NobelPrize pq:P585 ?When . }
+  OPTIONAL { ?Person wdt:P18 ?Picture . }
+  OPTIONAL { ?NobelPrize pq:P2121 ?MoneyValue . }
+  BIND(CONCAT(STR(?MoneyValue), " Swedish krona") as ?Money)
+  OPTIONAL { ?NobelPrize pq:P6208 ?Motivation filter (lang(?Motivation) = "en") . }
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
   }
-} ORDER BY ?year
+} ORDER BY ?Year
+```
+
+Query para obter premiados por categoria e ano
+
+```sparql
+SELECT DISTINCT ?PersonLabel ?NPLabel ?Year ?Picture ?Money ?Motivation
+WHERE {
+  VALUES ?Year { [[yearParameter]] }
+  VALUES ?Category { [[categoryParameter]] }
+  
+  ?Person p:P166 ?NobelPrize .
+  ?NobelPrize ps:P166/wdt:P279* ?Category ;
+              ps:P166/rdfs:label ?NPLabel ;
+              pq:P585 ?When ;
+              filter (lang(?NPLabel) = "en" && YEAR(?When) = ?Year) .
+  OPTIONAL { ?Person wdt:P18 ?Picture . }
+  OPTIONAL { ?NobelPrize pq:P2121 ?MoneyValue . }
+  BIND(CONCAT(STR(?MoneyValue), " Swedish krona") as ?Money)
+  OPTIONAL { ?NobelPrize pq:P6208 ?Motivation filter (lang(?Motivation) = "en") . }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+  }
+} ORDER BY ?Motivation
 ```
 
 </p>
