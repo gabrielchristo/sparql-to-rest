@@ -4,6 +4,7 @@ WORKDIR /src
 
 # copiando arquivos em hashformat para a imagem
 COPY nobel.hf .
+COPY nobel.py .
 
 # instalando ramose via pip
 RUN pip install ramose
